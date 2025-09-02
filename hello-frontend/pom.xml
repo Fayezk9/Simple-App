@@ -1,0 +1,68 @@
+<!--
+This POM defines the desktop "frontend" app.
+It depends on the backend and packages everything into one runnable JAR.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example</groupId>
+  <artifactId>hello-frontend</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>hello-frontend</name>
+  <description>Frontend window with centered button calling the backend</description>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <!-- Fully-qualified name of the class with public static void main -->
+    <main.class>com.example.frontend.App</main.class>
+  </properties>
+
+  <dependencies>
+    <!-- Our backend library -->
+    <dependency>
+      <groupId>com.example</groupId>
+      <artifactId>hello-backend</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Ensure we compile with the configured Java version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <release>${maven.compiler.source}</release>
+        </configuration>
+      </plugin>
+
+      <!-- Package everything (including backend) into a single runnable JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <createDependencyReducedPom>true</createDependencyReducedPom>
+              <transformers>
+                <!-- Set the Main-Class in the manifest -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>${main.class}</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
