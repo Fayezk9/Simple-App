@@ -1,1 +1,26 @@
+<!--
+This POM defines a tiny library ("backend").
+It has no external dependencies: Swing is part of the JDK.
+We compile for Java 17 (change to 21 if you prefer).
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
+  <!-- Coordinates you will use from the frontend -->
+  <groupId>com.example</groupId>
+  <artifactId>hello-backend</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>hello-backend</name>
+  <description>Backend library exposing showHelloDialog()</description>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <!-- No dependencies required -->
+  <dependencies/>
+</project>
